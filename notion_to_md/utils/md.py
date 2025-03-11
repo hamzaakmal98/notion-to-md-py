@@ -59,7 +59,8 @@ def heading3(text: str) -> str:
 
 
 def quote(text: str) -> str:
-    return f'> {text.replace("\n", "\n> ")}'
+    no_newline = text.replace("\n", "\n> ")
+    return f'> {no_newline}'
 
 
 def callout(text: str, icon: Optional[Dict] = None) -> str:
