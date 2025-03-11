@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="notion-to-md-py",  # Replace with your package name
-    version="0.1.0",
+    version="0.1.1",
     packages=find_packages(),  # Automatically include the submodules
     install_requires=[
         "httpx",  # Required based on `md.py`
@@ -28,7 +28,7 @@ setup(
     python_requires=">=3.7",
     keywords="notion markdown converter python",
     project_urls={
-        "Bug Tracker": "https://github.com/SwordAndTea/notion-to-md/issues",  # Replace with your issue tracker
-        "Source Code": "https://github.com/SwordAndTea/notion-to-md",  # Replace with your repository
+        "Bug Tracker": "https://github.com/SwordAndTea/notion-to-md-py/issues",
+        "Source Code": "https://github.com/SwordAndTea/notion-to-md-py",
     },
 )

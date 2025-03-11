@@ -1,0 +1,54 @@
+name: Run Pytest with Coverage
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_call:
+
+jobs:
+  test_and_upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install twine
+
+      - name: Run Pytest with Coverage
+        timeout-minutes: 5 # Timeout in 5 minutes for tests
+        run: |
+          # Wait until PostgreSQL is ready
+          until pg_isready -h localhost -p 5432 -U user; do
+            echo "Waiting for PostgreSQL to be ready..."
+            sleep 2
+          done
+          
+          # Run pytest and generate coverage report
+          pytest --cov=./biz --cov=app --cov-report=xml
+
+      - name: Upload coverage reports to Codecov
+        # if: github.ref == 'refs/heads/main'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: SwordAndTea/notion-to-md-py
+
+      - name: Build Package
+        run: python setup.py sdist bdist_wheel
+
+      - name: Publish Package to PyPI
+        env:
+          TWINE_USERNAME: swordandtea
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: twine upload dist/*
