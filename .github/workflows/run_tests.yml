@@ -1,0 +1,40 @@
+name: Run Pytest with Coverage
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - 'main'
+  workflow_call:
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Pytest with Coverage
+        timeout-minutes: 5 # Timeout in 5 minutes for tests
+        run: |
+          # Run pytest and generate coverage report
+          pytest --cov=./notion_to_md --cov-report=xml
+
+      - name: Upload coverage reports to Codecov
+        # if: github.ref == 'refs/heads/main'
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: SwordAndTea/notion-to-md-py

@@ -129,7 +129,7 @@ def divider() -> str:
 def toggle(summary: Optional[str] = None, children: Optional[str] = None) -> str:
     if not summary:
         return children or ''
-    return f'<details><summary>{summary}</summary>{children or ''}</details>'
+    return f"<details><summary>{summary}</summary>{children or ''}</details>"
 
 
 def table(cells: List[List[str]]) -> str:
