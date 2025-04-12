@@ -1,6 +1,5 @@
 import base64
 import re
-from tkinter.ttk import Style
 
 import httpx
 from typing import Optional, Dict, List
