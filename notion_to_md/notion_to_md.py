@@ -232,6 +232,10 @@ class NotionToMarkdown(NotionToMarkdownBase):
                 block_content = {
                     "url": f"https://www.notion.so/{block[block_type]['page_id']}"
                 }
+            elif block_type == "link_to_page" and block[block_type].get('type') == "database_id":
+                block_content = {
+                    "url": f"https://www.notion.so/{block[block_type]['database_id']}"
+                }
             else:
                 block_content = block[block_type]
             return md.link(block_type, block_content['url'])
@@ -483,6 +487,10 @@ class NotionToMarkdownAsync(NotionToMarkdownBase):
             if block_type == "link_to_page" and block[block_type].get('type') == "page_id":
                 block_content = {
                     "url": f"https://www.notion.so/{block[block_type]['page_id']}"
+                }
+            elif block_type == "link_to_page" and block[block_type].get('type') == "database_id":
+                block_content = {
+                    "url": f"https://www.notion.so/{block[block_type]['database_id']}"
                 }
             else:
                 block_content = block[block_type]
