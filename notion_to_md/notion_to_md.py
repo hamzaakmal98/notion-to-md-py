@@ -238,7 +238,8 @@ class NotionToMarkdown(NotionToMarkdownBase):
                 }
             else:
                 block_content = block[block_type]
-            return md.link(block_type, block_content['url'])
+            url = block_content.get('url', '')
+            return md.link(block_type, url)
 
         elif block_type == "child_page":
             if not self.config["parse_child_pages"]:
@@ -494,7 +495,8 @@ class NotionToMarkdownAsync(NotionToMarkdownBase):
                 }
             else:
                 block_content = block[block_type]
-            return md.link(block_type, block_content['url'])
+            url = block_content.get('url', '')
+            return md.link(block_type, url)
 
         elif block_type == "child_page":
             if not self.config["parse_child_pages"]:
