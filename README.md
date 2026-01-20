@@ -5,7 +5,7 @@ a tool that converts Notion pages into Markdown files.
 
 ## Installation
 
-Install the package via pip:
+Install the package via pip :
 
 ```bash
 pip install notion-to-md-py
